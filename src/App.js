@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Main from './View/Main';
+import Info from './View/Info';
+import list from './list';
 
 function App() {
+
+  const [listElement, setListElement] = useState(1);
+
+  function after(){
+    if(listElement > 1){
+      setListElement(listElement-1);
+    }
+  }
+  function next(){
+    setListElement(listElement+1);
+  }
+
+
   return (
     <div className="App">
+      <Main />
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>{listElement}</p>
+        <img src={list[listElement].element} className="App-logo" alt="logo" />
+        <div className='img_description'>
+          <p>{list[listElement].name}</p>
+        </div>
+        <div className='controlArea'>
+          <span onClick={() => after()}>Voltar</span>
+          <span onClick={() => next()}>Proximo</span>
+        </div>
       </header>
+      <Info />
     </div>
   );
 }
